@@ -1,10 +1,6 @@
 ---
 name: bmad-technical-research
-description: Conduct technical research on technologies and architecture. Use when the user says "create a technical research report on [topic]".
+description: 'Conduct technical research on technologies and architecture. Use when the user says they would like to do or produce a technical research report'
 ---
 
-# technical-research
-
-Read the entire workflow file at {project-root}/_bmad/bmm/workflows/1-analysis/research/workflow-technical-research.md
-
-Follow all instructions in the workflow file exactly as written.
+Follow the instructions in ./workflow.md.
