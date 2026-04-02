@@ -194,6 +194,7 @@ The following community-contributed extensions are available in [`catalog.commun
 + `Read-only` — produces reports without modifying files
 + `Read+Write` — modifies files, creates artifacts, or updates specs
 
+
 | Extension                               | Purpose                                                                                                                                                                                      | Category      | Effect     | URL                                                                                                |
 | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
 | AI-Driven Engineering (AIDE)            | A structured 7-step workflow for building new projects from scratch with AI assistants — from vision through implementation                                                                 | `process`     | Read+Write | [aide](https://github.com/mnriem/spec-kit-extensions/tree/main/aide)                               |
@@ -238,3 +239,57 @@ The following community-contributed extensions are available in [`catalog.commun
 | V-Model Extension Pack                  | Enforces V-Model paired generation of development specs and test specs with full traceability                                                                                                | `docs`        | Read+Write | [spec-kit-v-model](https://github.com/leocamello/spec-kit-v-model)                                 |
 | Verify Extension                        | Post-implementation quality gate that validates implemented code against specification artifacts                                                                                             | `code`        | Read-only  | [spec-kit-verify](https://github.com/ismaelJimenez/spec-kit-verify)                                |
 | Verify Tasks Extension                  | Detect phantom completions: tasks marked [X] in tasks.md with no real implementation                                                                                                         | `code`        | Read-only  | [spec-kit-verify-tasks](https://github.com/datastone-inc/spec-kit-verify-tasks)                    |
+
+
+
+🛠️ Community Friends
+Note
+
+Community projects listed here are independently created and maintained by their respective authors. They are not reviewed, nor endorsed, nor supported by GitHub. Review their source code before installation and use at your own discretion.
+
+Community projects that extend, visualize, or build on Spec Kit:
+
+***cc-sdd***** - A Claude Code plugin that adds composable traits on top of Spec Kit with Superpowers-based quality gates, spec/code review, git worktree isolation, and parallel implementation via agent teams.
+
+***Spec Kit Assistant***** — A VS Code extension that provides a visual orchestrator for the full SDD workflow (constitution → specification → planning → tasks → implementation) with phase status visualization, an interactive task checklist, DAG visualization, and support for Claude, Gemini, GitHub Copilot, and OpenAI backends. Requires the specify CLI in your PATH.
+
+🤖 Supported AI Agents
+Agent	Support	Notes
+Qoder CLI	✅
+Kiro CLI	✅	Use --ai kiro-cli (alias: --ai kiro)
+Amp	✅
+Auggie CLI	✅
+Claude Code	✅	Installs skills in .claude/skills; invoke spec-kit as /speckit-constitution, /speckit-plan, etc.
+CodeBuddy CLI	✅
+Codex CLI	✅	Requires --ai-skills. Codex recommends skills and treats custom prompts as deprecated. Spec-kit installs Codex skills into .agents/skills and invokes them as $speckit-<command>.
+Cursor	✅
+Gemini CLI	✅
+GitHub Copilot	✅
+IBM Bob	✅	IDE-based agent with slash command support
+Jules	✅
+Kilo Code	✅
+opencode	✅
+Pi Coding Agent	✅	Pi doesn't have MCP support out of the box, so taskstoissues won't work as intended. MCP support can be added via extensions
+Qwen Code	✅
+Roo Code	✅
+SHAI (OVHcloud)	✅
+Tabnine CLI	✅
+Mistral Vibe	✅
+Kimi Code	✅
+iFlow CLI	✅
+Windsurf	✅
+Junie	✅
+Antigravity (agy)	✅	Requires --ai-skills
+Trae	✅
+Generic	✅	Bring your own agent — use --ai generic --ai-commands-dir <path> for unsupported agents
+
+🔧 Specify CLI Reference
+The specify command supports the following options:
+
+Commands
+
+
+| Command | Description                                                                                                                                                                                                                                        |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| init    | Initialize a new Specify project from the latest templatenitialize a new Specify project from the latest template                                                                                                                                  |
+| check   | Check for installed tools: git plus all CLI-based agents configured in AGENT_CONFIG (for example: claude, gemini, code/code-insiders, cursor-agent, windsurf, junie, qwen, opencode, codex, kiro-cli, shai, qodercli, vibe, kimi, iflow, pi, etc.) |
