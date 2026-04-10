@@ -1,6 +1,6 @@
 # info on spec driven development solutions
 
-## BMAD upgrade
+## BMAD upgrade 6.3.0
 
 ```bash
 npx bmad-method install
@@ -101,7 +101,12 @@ Gitignore already had .copilot-tracking/
 MCP config created at mcp.json
 For custom/team setup, run this skill again and choose “Clone-Based Installation” as recommended.
 
-## GITHUB SPEC KIT
+## GITHUB SPEC KIT - 0.6.0
+
+```bash
+https://github.com/github/spec-kit/releases
+```
+
 
 ```bash
 uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@v0.4.5
@@ -125,6 +130,27 @@ To upgrade Specify, see the Upgrade Guide for detailed instructions. Quick upgra
 ```bash
 uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@vX.Y.Z
 ```
+
+  tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@v0.6.0
+  Resolved 15 packages in 186ms
+  Prepared 12 packages in 992ms
+  Installed 15 packages in 61ms
+  + annotated-doc==0.0.4
+  + click==8.3.2
+  + json5==0.14.0
+  + markdown-it-py==4.0.0
+  + mdurl==0.1.2
+  + packaging==26.0
+  + pathspec==1.0.4
+  + platformdirs==4.9.6
+  + pygments==2.20.0
+  + pyyaml==6.0.3
+  + readchar==4.2.2
+  + rich==14.3.3
+  + shellingham==1.5.4
+  + specify-cli==0.6.0 (from git+https://github.com/github/spec-kit.git@a4db16dc21892dcda45fc7ab53f64b9d7326a3c4)
+  + typer==0.24.1
+Installed 1 executable: specify
 
 Then use the tool directly:
 
