@@ -105,8 +105,8 @@ For custom/team setup, run this skill again and choose “Clone-Based Installati
 
 ```bash
 https://github.com/github/spec-kit/releases
+https://speckit.org/
 ```
-
 
 ```bash
 uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@v0.4.5
@@ -131,25 +131,26 @@ To upgrade Specify, see the Upgrade Guide for detailed instructions. Quick upgra
 uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@vX.Y.Z
 ```
 
-  tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@v0.6.0
+  tool install specify-cli --force --from git+<https://github.com/github/spec-kit.git@v0.6.0>
   Resolved 15 packages in 186ms
   Prepared 12 packages in 992ms
   Installed 15 packages in 61ms
-  + annotated-doc==0.0.4
-  + click==8.3.2
-  + json5==0.14.0
-  + markdown-it-py==4.0.0
-  + mdurl==0.1.2
-  + packaging==26.0
-  + pathspec==1.0.4
-  + platformdirs==4.9.6
-  + pygments==2.20.0
-  + pyyaml==6.0.3
-  + readchar==4.2.2
-  + rich==14.3.3
-  + shellingham==1.5.4
-  + specify-cli==0.6.0 (from git+https://github.com/github/spec-kit.git@a4db16dc21892dcda45fc7ab53f64b9d7326a3c4)
-  + typer==0.24.1
+
++ annotated-doc==0.0.4
++ click==8.3.2
++ json5==0.14.0
++ markdown-it-py==4.0.0
++ mdurl==0.1.2
++ packaging==26.0
++ pathspec==1.0.4
++ platformdirs==4.9.6
++ pygments==2.20.0
++ pyyaml==6.0.3
++ readchar==4.2.2
++ rich==14.3.3
++ shellingham==1.5.4
++ specify-cli==0.6.0 (from git+<https://github.com/github/spec-kit.git@a4db16dc21892dcda45fc7ab53f64b9d7326a3c4>)
++ typer==0.24.1
 Installed 1 executable: specify
 
 Then use the tool directly:
@@ -166,6 +167,37 @@ specify init --here --ai claude
 # Check installed tools
 specify check
 ```
+
+Available Slash Commands
+
+**After running specify init,**
+your AI coding agent will have access to these slash commands for structured development.
+**If you pass `--ai <agent>` `--ai-skills`,**
+Spec Kit installs agent skills instead of slash-command prompt files;
+--ai-skills requires --ai.
+
+Core Commands
+
+Essential commands for the Spec-Driven Development workflow:
+
+| Command | Agent Skill | Description |
+| --- | --- | --- |
+| `/speckit.constitution` | `speckit-constitution` | Create or update project governing principles and development guidelines |
+| `/speckit.specify` | `speckit-specify` | Define what you want to build (requirements and user stories) |
+| `/speckit.plan` | `speckit-plan` | Create technical implementation plans with your chosen tech stack |
+| `/speckit.tasks` | `speckit-tasks` | Generate actionable task lists for implementation |
+| `/speckit.taskstoissues` | `speckit-taskstoissues` | Convert generated task lists into GitHub issues for tracking and execution |
+| `/speckit.implement` | `speckit-implement` | Execute all tasks to build the feature according to the plan |
+
+Optional Commands
+
+Additional commands for enhanced quality and validation:
+
+| Command | Agent Skill | Description |
+| --- | --- | --- |
+| `/speckit.clarify` | `speckit-clarify` | Clarify underspecified areas (recommended before `/speckit.plan`; formerly `/quizme`) |
+| `/speckit.analyze` | `speckit-analyze` | Cross-artifact consistency & coverage analysis (run after `/speckit.tasks`, before `/speckit.implement`) |
+| `/speckit.checklist` | `speckit-checklist` | Generate custom quality checklists that validate requirements completeness, clarity, and consistency (like "unit tests for English") |
 
 ### 2. Establish project principles
 
@@ -220,53 +252,50 @@ The following community-contributed extensions are available in [`catalog.commun
 + `Read-only` — produces reports without modifying files
 + `Read+Write` — modifies files, creates artifacts, or updates specs
 
-
-| Extension                               | Purpose                                                                                                                                                                                      | Category      | Effect     | URL                                                                                                |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
-| AI-Driven Engineering (AIDE)            | A structured 7-step workflow for building new projects from scratch with AI assistants — from vision through implementation                                                                 | `process`     | Read+Write | [aide](https://github.com/mnriem/spec-kit-extensions/tree/main/aide)                               |
-| Archive Extension                       | Archive merged features into main project memory.                                                                                                                                            | `docs`        | Read+Write | [spec-kit-archive](https://github.com/stn1slv/spec-kit-archive)                                    |
-| Azure DevOps Integration                | Sync user stories and tasks to Azure DevOps work items using OAuth authentication                                                                                                            | `integration` | Read+Write | [spec-kit-azure-devops](https://github.com/pragya247/spec-kit-azure-devops)                        |
-| Checkpoint Extension                    | Commit the changes made during the middle of the implementation, so you don't end up with just one very large commit at the end                                                              | `code`        | Read+Write | [spec-kit-checkpoint](https://github.com/aaronrsun/spec-kit-checkpoint)                            |
-| Cleanup Extension                       | Post-implementation quality gate that reviews changes, fixes small issues (scout rule), creates tasks for medium issues, and generates analysis for large issues                             | `code`        | Read+Write | [spec-kit-cleanup](https://github.com/dsrednicki/spec-kit-cleanup)                                 |
-| Conduct Extension                       | Orchestrates spec-kit phases via sub-agent delegation to reduce context pollution.                                                                                                           | `process`     | Read+Write | [spec-kit-conduct-ext](https://github.com/twbrandon7/spec-kit-conduct-ext)                         |
-| DocGuard — CDD Enforcement             | Canonical-Driven Development enforcement. Validates, scores, and traces project documentation with automated checks, AI-driven workflows, and spec-kit hooks. Zero NPM runtime dependencies. | `docs`        | Read+Write | [spec-kit-docguard](https://github.com/raccioly/docguard)                                          |
-| Extensify                               | Create and validate extensions and extension catalogs                                                                                                                                        | `process`     | Read+Write | [extensify](https://github.com/mnriem/spec-kit-extensions/tree/main/extensify)                     |
-| Fix Findings                            | Automated analyze-fix-reanalyze loop that resolves spec findings until clean                                                                                                                 | `code`        | Read+Write | [spec-kit-fix-findings](https://github.com/Quratulain-bilal/spec-kit-fix-findings)                 |
-| Fleet Orchestrator                      | Orchestrate a full feature lifecycle with human-in-the-loop gates across all SpecKit phases                                                                                                  | `process`     | Read+Write | [spec-kit-fleet](https://github.com/sharathsatish/spec-kit-fleet)                                  |
-| Iterate                                 | Iterate on spec documents with a two-phase define-and-apply workflow — refine specs mid-implementation and go straight back to building                                                     | `docs`        | Read+Write | [spec-kit-iterate](https://github.com/imviancagrace/spec-kit-iterate)                              |
-| Jira Integration                        | Create Jira Epics, Stories, and Issues from spec-kit specifications and task breakdowns with configurable hierarchy and custom field support                                                 | `integration` | Read+Write | [spec-kit-jira](https://github.com/mbachorik/spec-kit-jira)                                        |
-| Learning Extension                      | Generate educational guides from implementations and enhance clarifications with mentoring context                                                                                           | `docs`        | Read+Write | [spec-kit-learn](https://github.com/imviancagrace/spec-kit-learn)                                  |
-| MAQA — Multi-Agent & Quality Assurance | Coordinator → feature → QA agent workflow with parallel worktree-based implementation. Language-agnostic. Auto-detects installed board plugins. Optional CI gate.                          | `process`     | Read+Write | [spec-kit-maqa-ext](https://github.com/GenieRobot/spec-kit-maqa-ext)                               |
-| MAQA Azure DevOps Integration           | Azure DevOps Boards integration for MAQA — syncs User Stories and Task children as features progress                                                                                        | `integration` | Read+Write | [spec-kit-maqa-azure-devops](https://github.com/GenieRobot/spec-kit-maqa-azure-devops)             |
-| MAQA CI/CD Gate                         | Auto-detects GitHub Actions, CircleCI, GitLab CI, and Bitbucket Pipelines. Blocks QA handoff until pipeline is green.                                                                        | `process`     | Read+Write | [spec-kit-maqa-ci](https://github.com/GenieRobot/spec-kit-maqa-ci)                                 |
-| MAQA GitHub Projects Integration        | GitHub Projects v2 integration for MAQA — syncs draft issues and Status columns as features progress                                                                                        | `integration` | Read+Write | [spec-kit-maqa-github-projects](https://github.com/GenieRobot/spec-kit-maqa-github-projects)       |
-| MAQA Jira Integration                   | Jira integration for MAQA — syncs Stories and Subtasks as features progress through the board                                                                                               | `integration` | Read+Write | [spec-kit-maqa-jira](https://github.com/GenieRobot/spec-kit-maqa-jira)                             |
-| MAQA Linear Integration                 | Linear integration for MAQA — syncs issues and sub-issues across workflow states as features progress                                                                                       | `integration` | Read+Write | [spec-kit-maqa-linear](https://github.com/GenieRobot/spec-kit-maqa-linear)                         |
-| MAQA Trello Integration                 | Trello board integration for MAQA — populates board from specs, moves cards, real-time checklist ticking                                                                                    | `integration` | Read+Write | [spec-kit-maqa-trello](https://github.com/GenieRobot/spec-kit-maqa-trello)                         |
-| Onboard                                 | Contextual onboarding and progressive growth for developers new to spec-kit projects. Explains specs, maps dependencies, validates understanding, and guides the next step                   | `process`     | Read+Write | [spec-kit-onboard](https://github.com/dmux/spec-kit-onboard)                                       |
-| Plan Review Gate                        | Require spec.md and plan.md to be merged via MR/PR before allowing task generation                                                                                                           | `process`     | Read-only  | [spec-kit-plan-review-gate](https://github.com/luno/spec-kit-plan-review-gate)                     |
-| Presetify                               | Create and validate presets and preset catalogs                                                                                                                                              | `process`     | Read+Write | [presetify](https://github.com/mnriem/spec-kit-extensions/tree/main/presetify)                     |
-| Product Forge                           | Full product lifecycle: research → product spec → SpecKit → implement → verify → test                                                                                                   | `process`     | Read+Write | [speckit-product-forge](https://github.com/VaiYav/speckit-product-forge)                           |
-| Project Health Check                    | Diagnose a Spec Kit project and report health issues across structure, agents, features, scripts, extensions, and git                                                                        | `visibility`  | Read-only  | [spec-kit-doctor](https://github.com/KhawarHabibKhan/spec-kit-doctor)                              |
-| Project Status                          | Show current SDD workflow progress — active feature, artifact status, task completion, workflow phase, and extensions summary                                                               | `visibility`  | Read-only  | [spec-kit-status](https://github.com/KhawarHabibKhan/spec-kit-status)                              |
-| QA Testing Extension                    | Systematic QA testing with browser-driven or CLI-based validation of acceptance criteria from spec                                                                                           | `code`        | Read-only  | [spec-kit-qa](https://github.com/arunt14/spec-kit-qa)                                              |
-| Ralph Loop                              | Autonomous implementation loop using AI agent CLI                                                                                                                                            | `code`        | Read+Write | [spec-kit-ralph](https://github.com/Rubiss/spec-kit-ralph)                                         |
-| Reconcile Extension                     | Reconcile implementation drift by surgically updating feature artifacts.                                                                                                                     | `docs`        | Read+Write | [spec-kit-reconcile](https://github.com/stn1slv/spec-kit-reconcile)                                |
-| Repository Index                        | Generate index for existing repo for overview, architecture and module level.                                                                                                                | `docs`        | Read-only  | [spec-kit-repoindex](https://github.com/liuyiyu/spec-kit-repoindex)                                |
-| Retro Extension                         | Sprint retrospective analysis with metrics, spec accuracy assessment, and improvement suggestions                                                                                            | `process`     | Read+Write | [spec-kit-retro](https://github.com/arunt14/spec-kit-retro)                                        |
-| Retrospective Extension                 | Post-implementation retrospective with spec adherence scoring, drift analysis, and human-gated spec updates                                                                                  | `docs`        | Read+Write | [spec-kit-retrospective](https://github.com/emi-dm/spec-kit-retrospective)                         |
-| Review Extension                        | Post-implementation comprehensive code review with specialized agents for code quality, comments, tests, error handling, type design, and simplification                                     | `code`        | Read-only  | [spec-kit-review](https://github.com/ismaelJimenez/spec-kit-review)                                |
-| SDD Utilities                           | Resume interrupted workflows, validate project health, and verify spec-to-task traceability                                                                                                  | `process`     | Read+Write | [speckit-utils](https://github.com/mvanhorn/speckit-utils)                                         |
-| Staff Review Extension                  | Staff-engineer-level code review that validates implementation against spec, checks security, performance, and test coverage                                                                 | `code`        | Read-only  | [spec-kit-staff-review](https://github.com/arunt14/spec-kit-staff-review)                          |
-| Superpowers Bridge                      | Orchestrates obra/superpowers skills within the spec-kit SDD workflow across the full lifecycle (clarification, TDD, review, verification, critique, debugging, branch completion)           | `process`     | Read+Write | [superpowers-bridge](https://github.com/RbBtSn0w/spec-kit-extensions/tree/main/superpowers-bridge) |
-| Ship Release Extension                  | Automates release pipeline: pre-flight checks, branch sync, changelog generation, CI verification, and PR creation                                                                           | `process`     | Read+Write | [spec-kit-ship](https://github.com/arunt14/spec-kit-ship)                                          |
-| Spec Critique Extension                 | Dual-lens critical review of spec and plan from product strategy and engineering risk perspectives                                                                                           | `docs`        | Read-only  | [spec-kit-critique](https://github.com/arunt14/spec-kit-critique)                                  |
-| Spec Sync                               | Detect and resolve drift between specs and implementation. AI-assisted resolution with human approval                                                                                        | `docs`        | Read+Write | [spec-kit-sync](https://github.com/bgervin/spec-kit-sync)                                          |
-| V-Model Extension Pack                  | Enforces V-Model paired generation of development specs and test specs with full traceability                                                                                                | `docs`        | Read+Write | [spec-kit-v-model](https://github.com/leocamello/spec-kit-v-model)                                 |
-| Verify Extension                        | Post-implementation quality gate that validates implemented code against specification artifacts                                                                                             | `code`        | Read-only  | [spec-kit-verify](https://github.com/ismaelJimenez/spec-kit-verify)                                |
-| Verify Tasks Extension                  | Detect phantom completions: tasks marked [X] in tasks.md with no real implementation                                                                                                         | `code`        | Read-only  | [spec-kit-verify-tasks](https://github.com/datastone-inc/spec-kit-verify-tasks)                    |
-
-
+| Extension | Purpose | Category | Effect | URL |
+| --- | --- | --- | --- | --- |
+| AI-Driven Engineering (AIDE) | A structured 7-step workflow for building new projects from scratch with AI assistants — from vision through implementation | `process` | Read+Write | [aide](https://github.com/mnriem/spec-kit-extensions/tree/main/aide) |
+| Archive Extension | Archive merged features into main project memory. | `docs` | Read+Write | [spec-kit-archive](https://github.com/stn1slv/spec-kit-archive) |
+| Azure DevOps Integration | Sync user stories and tasks to Azure DevOps work items using OAuth authentication | `integration` | Read+Write | [spec-kit-azure-devops](https://github.com/pragya247/spec-kit-azure-devops) |
+| Checkpoint Extension | Commit the changes made during the middle of the implementation, so you don't end up with just one very large commit at the end | `code` | Read+Write | [spec-kit-checkpoint](https://github.com/aaronrsun/spec-kit-checkpoint) |
+| Cleanup Extension | Post-implementation quality gate that reviews changes, fixes small issues (scout rule), creates tasks for medium issues, and generates analysis for large issues | `code` | Read+Write | [spec-kit-cleanup](https://github.com/dsrednicki/spec-kit-cleanup) |
+| Conduct Extension | Orchestrates spec-kit phases via sub-agent delegation to reduce context pollution. | `process` | Read+Write | [spec-kit-conduct-ext](https://github.com/twbrandon7/spec-kit-conduct-ext) |
+| DocGuard — CDD Enforcement | Canonical-Driven Development enforcement. Validates, scores, and traces project documentation with automated checks, AI-driven workflows, and spec-kit hooks. Zero NPM runtime dependencies. | `docs` | Read+Write | [spec-kit-docguard](https://github.com/raccioly/docguard) |
+| Extensify | Create and validate extensions and extension catalogs | `process` | Read+Write | [extensify](https://github.com/mnriem/spec-kit-extensions/tree/main/extensify) |
+| Fix Findings | Automated analyze-fix-reanalyze loop that resolves spec findings until clean | `code` | Read+Write | [spec-kit-fix-findings](https://github.com/Quratulain-bilal/spec-kit-fix-findings) |
+| Fleet Orchestrator | Orchestrate a full feature lifecycle with human-in-the-loop gates across all SpecKit phases | `process` | Read+Write | [spec-kit-fleet](https://github.com/sharathsatish/spec-kit-fleet) |
+| Iterate | Iterate on spec documents with a two-phase define-and-apply workflow — refine specs mid-implementation and go straight back to building | `docs` | Read+Write | [spec-kit-iterate](https://github.com/imviancagrace/spec-kit-iterate) |
+| Jira Integration | Create Jira Epics, Stories, and Issues from spec-kit specifications and task breakdowns with configurable hierarchy and custom field support | `integration` | Read+Write | [spec-kit-jira](https://github.com/mbachorik/spec-kit-jira) |
+| Learning Extension | Generate educational guides from implementations and enhance clarifications with mentoring context | `docs` | Read+Write | [spec-kit-learn](https://github.com/imviancagrace/spec-kit-learn) |
+| MAQA — Multi-Agent & Quality Assurance | Coordinator → feature → QA agent workflow with parallel worktree-based implementation. Language-agnostic. Auto-detects installed board plugins. Optional CI gate. | `process` | Read+Write | [spec-kit-maqa-ext](https://github.com/GenieRobot/spec-kit-maqa-ext) |
+| MAQA Azure DevOps Integration | Azure DevOps Boards integration for MAQA — syncs User Stories and Task children as features progress | `integration` | Read+Write | [spec-kit-maqa-azure-devops](https://github.com/GenieRobot/spec-kit-maqa-azure-devops) |
+| MAQA CI/CD Gate | Auto-detects GitHub Actions, CircleCI, GitLab CI, and Bitbucket Pipelines. Blocks QA handoff until pipeline is green. | `process` | Read+Write | [spec-kit-maqa-ci](https://github.com/GenieRobot/spec-kit-maqa-ci) |
+| MAQA GitHub Projects Integration | GitHub Projects v2 integration for MAQA — syncs draft issues and Status columns as features progress | `integration` | Read+Write | [spec-kit-maqa-github-projects](https://github.com/GenieRobot/spec-kit-maqa-github-projects) |
+| MAQA Jira Integration | Jira integration for MAQA — syncs Stories and Subtasks as features progress through the board | `integration` | Read+Write | [spec-kit-maqa-jira](https://github.com/GenieRobot/spec-kit-maqa-jira) |
+| MAQA Linear Integration | Linear integration for MAQA — syncs issues and sub-issues across workflow states as features progress | `integration` | Read+Write | [spec-kit-maqa-linear](https://github.com/GenieRobot/spec-kit-maqa-linear) |
+| MAQA Trello Integration | Trello board integration for MAQA — populates board from specs, moves cards, real-time checklist ticking | `integration` | Read+Write | [spec-kit-maqa-trello](https://github.com/GenieRobot/spec-kit-maqa-trello) |
+| Onboard | Contextual onboarding and progressive growth for developers new to spec-kit projects. Explains specs, maps dependencies, validates understanding, and guides the next step | `process` | Read+Write | [spec-kit-onboard](https://github.com/dmux/spec-kit-onboard) |
+| Plan Review Gate | Require spec.md and plan.md to be merged via MR/PR before allowing task generation | `process` | Read-only | [spec-kit-plan-review-gate](https://github.com/luno/spec-kit-plan-review-gate) |
+| Presetify | Create and validate presets and preset catalogs | `process` | Read+Write | [presetify](https://github.com/mnriem/spec-kit-extensions/tree/main/presetify) |
+| Product Forge | Full product lifecycle: research → product spec → SpecKit → implement → verify → test | `process` | Read+Write | [speckit-product-forge](https://github.com/VaiYav/speckit-product-forge) |
+| Project Health Check | Diagnose a Spec Kit project and report health issues across structure, agents, features, scripts, extensions, and git | `visibility` | Read-only | [spec-kit-doctor](https://github.com/KhawarHabibKhan/spec-kit-doctor) |
+| Project Status | Show current SDD workflow progress — active feature, artifact status, task completion, workflow phase, and extensions summary | `visibility` | Read-only | [spec-kit-status](https://github.com/KhawarHabibKhan/spec-kit-status) |
+| QA Testing Extension | Systematic QA testing with browser-driven or CLI-based validation of acceptance criteria from spec | `code` | Read-only | [spec-kit-qa](https://github.com/arunt14/spec-kit-qa) |
+| Ralph Loop | Autonomous implementation loop using AI agent CLI | `code` | Read+Write | [spec-kit-ralph](https://github.com/Rubiss/spec-kit-ralph) |
+| Reconcile Extension | Reconcile implementation drift by surgically updating feature artifacts. | `docs` | Read+Write | [spec-kit-reconcile](https://github.com/stn1slv/spec-kit-reconcile) |
+| Repository Index | Generate index for existing repo for overview, architecture and module level. | `docs` | Read-only | [spec-kit-repoindex](https://github.com/liuyiyu/spec-kit-repoindex) |
+| Retro Extension | Sprint retrospective analysis with metrics, spec accuracy assessment, and improvement suggestions | `process` | Read+Write | [spec-kit-retro](https://github.com/arunt14/spec-kit-retro) |
+| Retrospective Extension | Post-implementation retrospective with spec adherence scoring, drift analysis, and human-gated spec updates | `docs` | Read+Write | [spec-kit-retrospective](https://github.com/emi-dm/spec-kit-retrospective) |
+| Review Extension | Post-implementation comprehensive code review with specialized agents for code quality, comments, tests, error handling, type design, and simplification | `code` | Read-only | [spec-kit-review](https://github.com/ismaelJimenez/spec-kit-review) |
+| SDD Utilities | Resume interrupted workflows, validate project health, and verify spec-to-task traceability | `process` | Read+Write | [speckit-utils](https://github.com/mvanhorn/speckit-utils) |
+| Staff Review Extension | Staff-engineer-level code review that validates implementation against spec, checks security, performance, and test coverage | `code` | Read-only | [spec-kit-staff-review](https://github.com/arunt14/spec-kit-staff-review) |
+| Superpowers Bridge | Orchestrates obra/superpowers skills within the spec-kit SDD workflow across the full lifecycle (clarification, TDD, review, verification, critique, debugging, branch completion) | `process` | Read+Write | [superpowers-bridge](https://github.com/RbBtSn0w/spec-kit-extensions/tree/main/superpowers-bridge) |
+| Ship Release Extension | Automates release pipeline: pre-flight checks, branch sync, changelog generation, CI verification, and PR creation | `process` | Read+Write | [spec-kit-ship](https://github.com/arunt14/spec-kit-ship) |
+| Spec Critique Extension | Dual-lens critical review of spec and plan from product strategy and engineering risk perspectives | `docs` | Read-only | [spec-kit-critique](https://github.com/arunt14/spec-kit-critique) |
+| Spec Sync | Detect and resolve drift between specs and implementation. AI-assisted resolution with human approval | `docs` | Read+Write | [spec-kit-sync](https://github.com/bgervin/spec-kit-sync) |
+| V-Model Extension Pack | Enforces V-Model paired generation of development specs and test specs with full traceability | `docs` | Read+Write | [spec-kit-v-model](https://github.com/leocamello/spec-kit-v-model) |
+| Verify Extension | Post-implementation quality gate that validates implemented code against specification artifacts | `code` | Read-only | [spec-kit-verify](https://github.com/ismaelJimenez/spec-kit-verify) |
+| Verify Tasks Extension | Detect phantom completions: tasks marked [X] in tasks.md with no real implementation | `code` | Read-only | [spec-kit-verify-tasks](https://github.com/datastone-inc/spec-kit-verify-tasks) |
 
 🛠️ Community Friends
 Note
@@ -280,42 +309,41 @@ Community projects that extend, visualize, or build on Spec Kit:
 ***Spec Kit Assistant***** — A VS Code extension that provides a visual orchestrator for the full SDD workflow (constitution → specification → planning → tasks → implementation) with phase status visualization, an interactive task checklist, DAG visualization, and support for Claude, Gemini, GitHub Copilot, and OpenAI backends. Requires the specify CLI in your PATH.
 
 🤖 Supported AI Agents
-Agent	Support	Notes
-Qoder CLI	✅
-Kiro CLI	✅	Use --ai kiro-cli (alias: --ai kiro)
-Amp	✅
-Auggie CLI	✅
-Claude Code	✅	Installs skills in .claude/skills; invoke spec-kit as /speckit-constitution, /speckit-plan, etc.
-CodeBuddy CLI	✅
-Codex CLI	✅	Requires --ai-skills. Codex recommends skills and treats custom prompts as deprecated. Spec-kit installs Codex skills into .agents/skills and invokes them as $speckit-<command>.
-Cursor	✅
-Gemini CLI	✅
-GitHub Copilot	✅
-IBM Bob	✅	IDE-based agent with slash command support
-Jules	✅
-Kilo Code	✅
-opencode	✅
-Pi Coding Agent	✅	Pi doesn't have MCP support out of the box, so taskstoissues won't work as intended. MCP support can be added via extensions
-Qwen Code	✅
-Roo Code	✅
-SHAI (OVHcloud)	✅
-Tabnine CLI	✅
-Mistral Vibe	✅
-Kimi Code	✅
-iFlow CLI	✅
-Windsurf	✅
-Junie	✅
-Antigravity (agy)	✅	Requires --ai-skills
-Trae	✅
-Generic	✅	Bring your own agent — use --ai generic --ai-commands-dir <path> for unsupported agents
+Agent Support Notes
+Qoder CLI ✅
+Kiro CLI ✅ Use --ai kiro-cli (alias: --ai kiro)
+Amp ✅
+Auggie CLI ✅
+Claude Code ✅ Installs skills in .claude/skills; invoke spec-kit as /speckit-constitution, /speckit-plan, etc.
+CodeBuddy CLI ✅
+Codex CLI ✅ Requires --ai-skills. Codex recommends skills and treats custom prompts as deprecated. Spec-kit installs Codex skills into .agents/skills and invokes them as `$speckit-<command>`.
+Cursor ✅
+Gemini CLI ✅
+GitHub Copilot ✅
+IBM Bob ✅ IDE-based agent with slash command support
+Jules ✅
+Kilo Code ✅
+opencode ✅
+Pi Coding Agent ✅ Pi doesn't have MCP support out of the box, so taskstoissues won't work as intended. MCP support can be added via extensions
+Qwen Code ✅
+Roo Code ✅
+SHAI (OVHcloud) ✅
+Tabnine CLI ✅
+Mistral Vibe ✅
+Kimi Code ✅
+iFlow CLI ✅
+Windsurf ✅
+Junie ✅
+Antigravity (agy) ✅ Requires --ai-skills
+Trae ✅
+Generic ✅ Bring your own agent — use `--ai generic --ai-commands-dir <path>` for unsupported agents
 
 🔧 Specify CLI Reference
 The specify command supports the following options:
 
 Commands
 
-
-| Command | Description                                                                                                                                                                                                                                        |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| init    | Initialize a new Specify project from the latest templatenitialize a new Specify project from the latest template                                                                                                                                  |
-| check   | Check for installed tools: git plus all CLI-based agents configured in AGENT_CONFIG (for example: claude, gemini, code/code-insiders, cursor-agent, windsurf, junie, qwen, opencode, codex, kiro-cli, shai, qodercli, vibe, kimi, iflow, pi, etc.) |
+| Command | Description |
+| --- | --- |
+| `init` | Initialize a new Specify project from the latest template |
+| `check` | Check for installed tools: git plus all CLI-based agents configured in AGENT_CONFIG (for example: claude, gemini, code/code-insiders, cursor-agent, windsurf, junie, qwen, opencode, codex, kiro-cli, shai, qodercli, vibe, kimi, iflow, pi, etc.) |
